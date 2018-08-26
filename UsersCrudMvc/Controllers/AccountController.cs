@@ -481,5 +481,22 @@ namespace UsersCrudMvc.Controllers
             }
         }
         #endregion
+
+        public ActionResult CreateAdmin()
+        {
+            //RoleManagerの取得
+            var roleManager = this.HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            //Roleの生成
+            roleManager.Create(new ApplicationRole { Name = "admin" });
+
+            //UserManagerの取得
+            var userManager = this.HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            //adminにするユーザーの検索
+            var user = userManager.Find("ya.androidapp@gmail.com", "Passw0rd!");
+            //紐づけ
+            userManager.AddToRole(user.Id, "admin");
+
+            return Content("create admin");
+        }
     }
 }
