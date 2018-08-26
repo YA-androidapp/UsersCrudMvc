@@ -30,4 +30,9 @@ namespace UsersCrudMvc.Models
             return new ApplicationDbContext();
         }
     }
+
+    public class ApplicationRole : IdentityRole
+    {
+
+    }
 }
